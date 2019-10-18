@@ -111,6 +111,16 @@ ansible-playbook -i ~/tutorial-cli-ansible/ansible/alicloud.py ~/tutorial-cli-an
 
 ![](https://img.alicdn.com/tfs/TB1DMMcjrj1gK0jSZFuXXcrHpXa-2874-840.png)
 
+## 销毁资源
+
+通过 Ansible 您也可以销毁资源。其中 `destory.yml` playbook 声明了销毁资源的配置信息，<tutorial-editor-open-file filePath="tutorial-cli-ansible/ansible/destory.yml">在 Cloud Shell 编辑器中查看 destory.yml</tutorial-editor-open-file>。
+
+您可以执行以下命令来销毁前文创建的资源。
+
+```bash
+ansible-playbook ~/tutorial-cli-ansible/ansible/destory.yml
+```
+
 ## 总结
 
 恭喜！
