@@ -10,6 +10,19 @@
 
 <tutorial-nav></tutorial-nav>
 
+## 使用须知
+
+### 计费
+
+本教程默认帮您创建的资源有：
+
+- ECS
+    - 实例规格：ecs.t5-lc2m1.nano
+    - 实例数量：2
+    - 系统盘：20G 高效云盘
+
+具体计费信息，参见 [ECS 计费概述](https://help.aliyun.com/document_detail/25398.html)。
+
 ## 配置 Ansible
 
 在 Cloud Shell 中，您可以直接使用 Ansible 来管理您的云资源。Cloud Shell 为您内置了授权，并且默认配置好了阿里云模块，您无需进行额外配置。默认 Cloud Shell 会使用临时 AK 帮您配置好 AK 信息，同时默认 region 为 `cn-hangzhou`。
