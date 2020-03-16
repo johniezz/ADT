@@ -81,6 +81,12 @@ ansible-playbook create.yml
 pip install ansible_alicloud_module_utils
 ```
 
+同时，升级 footmark，保证使用最新版本 footmark
+
+```bash
+pip install footmark --upgrade
+```
+
 ### 下载与验证
 
 首先您需要下载阿里云动态 Inventory 文件，并赋予其可执行权限
