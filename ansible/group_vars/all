@@ -1,12 +1,11 @@
 # common parameters
 alicloud_region: "cn-hangzhou"
-alicloud_zone: "cn-hangzhou-i"
+alicloud_zone: "cn-hangzhou-g"
 
 # create vpc parameters
 vpc_cidr: "172.16.0.0/12"
 vpc_name: "Airwallex_Demo_Cli_Ansible"
 vpc_description: "Create a new VPC resource via Ansible example."
-vpc_az: "cn-hangzhou-i"
 
 # create vswitch parameters
 vswitch_cidr: "172.16.1.0/24"
@@ -28,7 +27,7 @@ instance_type: "ecs.t5-lc1m1.small"
 instance_name: "Airwallex_Demo_Cli_Ansible"
 instance_description: "Create a new ECS instance resource via Ansible example."
 host_name: "airwallex-demo-from-ansible"
-password: "Test12345"
+key_name: "adt"
 
 allocate_public_ip: True
 internet_charge_type: "PayByTraffic"
@@ -37,6 +36,6 @@ max_bandwidth_out: 50
 instance_tags: {created_from: cloudshell-tutorial-cli-ansible}
 
 system_disk_category: "cloud_ssd"
-system_disk_size: 10
+system_disk_size: 20
 
-number_of_instances: 2
+number_of_instances: 1
