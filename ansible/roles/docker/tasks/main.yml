@@ -1,0 +1,63 @@
+- name: prepartion before add repo
+  block: 
+    # not sure why the lock file and the folder is missing, need further check
+    - name: create folder
+      file: 
+        path: /var/lib/apt/lists/
+        state: directory
+        mode: '0755'
+    - name: create file
+      file: 
+        path: /var/lib/apt/lists/path
+        state: touch
+        mode: '0640'
+    - name: Run the equivalent of "apt-get update" as a separate step
+      apt: update_cache=yes
+    - name: delete dependency packages
+      apt: name={{ item }} state=absent
+      with_items:
+        - docker 
+        - docker-engine 
+        - docker.io 
+        - containerd 
+        - runc
+    - name: install some dependency packages
+      apt: 
+        name: 
+          - apt-transport-https 
+          - ca-certificates 
+          - curl 
+          - software-properties-common 
+        state: present
+        
+- name: add docker repo in alicloud
+  block:
+    - name: get repo certificate
+      shell: curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+    - name: Add docker repository into sources list
+      apt_repository:
+        repo: deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu focal stable
+        state: present
+        update_cache: yes
+        validate_certs: no
+
+- name: install docker CE
+  apt: name={{ item }} state=present
+  with_items:
+    - docker-ce={{ docker_version }}
+    - docker-ce-cli={{ docker_version }}
+    - containerd.io
+
+- name: use docker registry in alicloud
+  shell: |
+     tee /etc/docker/daemon.json <<-'EOF'
+     {
+       "registry-mirrors": ["https://041dkqjk.mirror.aliyuncs.com"]
+     }
+     EOF
+     systemctl daemon-reload
+     systemctl restart docker
+
+- name: Install Docker SDK of Python
+  pip:
+    name: docker

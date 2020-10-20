@@ -1,0 +1,32 @@
+- name: Start nginx container with healthstatus
+  docker_container:
+    name: "{{ container_name }}"
+    image: "{{ image }}"
+    state: started
+    published_ports:
+      - "80:80"
+    healthcheck:
+      # Check if nginx server is healthy by curl'ing the server.
+      # If this fails or timeouts, the healthcheck fails.
+      test: ["CMD", "curl", "--fail", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+- name: Count all words of nginx container's default http page in alphabet order.
+  shell: curl -s http://localhost | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | wc -l
+  register: words_count
+- debug:
+    msg:
+      - "Words count: {{ words_count.stdout_lines }}"
+
+- name: Sort all words of nginx container's default http page in alphabet order.
+  shell: curl -s http://localhost | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | sort -u
+  register: sort_words
+- debug:
+    msg:
+      - "Sorted words: {{ sort_words.stdout_lines }}"
+
+- name: Logs the container's resource usage every 10 seconds.
+  shell: nohup sh -c 'while true; do docker stats {{ container_name|quote }} --no-stream >> /var/log/docker_stats.log; sleep 10; done' &

@@ -1,0 +1,7 @@
+- name: Install Nginx
+  hosts: tag_created_from_cloudshell_tutorial_cli_ansible
+  remote_user: root
+
+  roles:
+    - docker
+    - nginx
