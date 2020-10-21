@@ -22,7 +22,7 @@ group_inboundRules:
     priority: 1
 
 # create ECS instance parameters
-image_id: "ubuntu_20_04_x64_20G_alibase_20200522.vhd"
+image_id: "ubuntu_18_04_x64_20G_alibase_20200914.vhd"
 instance_type: "ecs.t5-lc1m1.small"
 instance_name: "Airwallex_Demo_Cli_Ansible"
 instance_description: "Create a new ECS instance resource via Ansible example."
@@ -39,3 +39,8 @@ system_disk_category: "cloud_ssd"
 system_disk_size: 20
 
 number_of_instances: 1
+
+# nginx related parameters
+docker_version: 5:19.03.13~3-0~ubuntu-focal
+container_name: nginx
+containter_image: nginx:1.19
