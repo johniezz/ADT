@@ -57,6 +57,8 @@
      EOF
      systemctl daemon-reload
      systemctl restart docker
+- name: Install pip
+  apt: name=python-pip state=present
 
 - name: Install Docker SDK of Python
   pip:
