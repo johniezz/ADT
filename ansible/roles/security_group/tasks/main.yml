@@ -20,5 +20,4 @@
     description: '{{ group_description }}'
     vpc_id: '{{vpcs.vpcs.0.id}}'
     rules: '{{ group_inboundRules }}'
-  when: not sgs.groups
   register: group

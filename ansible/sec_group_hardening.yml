@@ -1,0 +1,12 @@
+- name: Update security group
+  hosts: localhost
+  remote_user: root
+
+  roles:
+    - role: security_group
+      vars:
+        group_inboundRules:
+          - ip_protocol: tcp
+            port_range: "{{ ssh_hardening_port }}/{{ ssh_hardening_port }}"
+            source_cidr_ip: 0.0.0.0/0
+            priority: 1
