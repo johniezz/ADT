@@ -1,0 +1,8 @@
+roles:
+  - name: dev-sec.ssh-hardening
+    version: 9.7.0
+  - name: dev-sec.os-hardening
+    version: 6.2.0
+collections:
+  - name: ansible.posix
+    version: 1.1.1
