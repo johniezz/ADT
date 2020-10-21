@@ -1,1 +1,9 @@
 - name: add firewall rules using iptables
+  shell: |
+    /sbin/iptables -A INPUT -p icmp -m state --state NEW --icmp-type 8 -j ACCEPT
+    /sbin/iptables -A INPUT -i eth0 -p tcp --dport {{ ssh_hardening_port }} -j ACCEPT
+    /sbin/iptables -A INPUT -i eth0 -p tcp --dport {{ nginx_external_port }} -j ACCEPT
+    /sbin/iptables -A INPUT -i eth0 -m state --state ESTABLISHED,RELATED -j ACCEPT
+    /sbin/iptables -A INPUT -i eth0 -j REJECT
+    mkdir -p /etc/iptables
+    iptables-save >/etc/iptables/rules.v4
