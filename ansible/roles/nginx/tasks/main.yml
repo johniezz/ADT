@@ -4,25 +4,25 @@
     image: "{{ containter_image }}"
     state: started
     published_ports:
-      - "80:80"
+      - "{{ nginx_external_port }}:80"
     healthcheck:
       # Check if nginx server is healthy by curl'ing the server.
       # If this fails or timeouts, the healthcheck fails.
-      test: ["CMD", "curl", "--fail", "http://localhost"]
+      test: ["CMD", "curl", "--fail", "http://localhost:{{ nginx_external_port }}"]
       interval: 1m30s
       timeout: 10s
       retries: 3
       start_period: 30s
 
 - name: Count all words of nginx container's default http page
-  shell: curl -s http://localhost | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | wc -l
+  shell: curl -s "http://localhost:{{ nginx_external_port }}" | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | wc -l
   register: words_count
 - debug:
     msg:
       - "Words count to: {{ words_count.stdout_lines }}"
 
 - name: Sort all words of nginx container's default http page
-  shell: curl -s http://localhost | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | sort -u
+  shell: curl -s "http://localhost:{{ nginx_external_port }}" | sed -e 's/<[^>]*>//g' | tr ' ' '\n' | egrep '[[:alpha:]]' | sort -u
   register: sort_words
 - debug:
     msg:

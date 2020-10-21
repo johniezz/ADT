@@ -10,3 +10,8 @@
             port_range: "{{ ssh_hardening_port }}/{{ ssh_hardening_port }}"
             source_cidr_ip: 0.0.0.0/0
             priority: 1
+          # disable below block if nginx do not need to exposed to public network
+          - ip_protocol: tcp
+            port_range: "{{ nginx_external_port }}/{{ nginx_external_port }}"
+            source_cidr_ip: 0.0.0.0/0
+            priority: 2
