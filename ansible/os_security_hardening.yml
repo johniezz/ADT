@@ -1,0 +1,14 @@
+- name: Security Hardening for the VM
+  hosts: tag_created_from_cloudshell_tutorial_cli_ansible
+  remote_user: root
+
+  roles:
+    #- role: login_user
+    #- role: dev-sec.os-hardening
+    #  vars:
+    #    sysctl_overwrite:
+    #      # Enable IPv4 traffic forwarding.
+    #      net.ipv4.ip_forward: 1
+    - role: dev-sec.ssh-hardening
+      vars:
+        ssh_server_ports: ['37']
